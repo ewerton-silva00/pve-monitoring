@@ -39,5 +39,6 @@ scrape_configs:
     static_configs:
       - targets: ['pve.meudominio.local:9221']
         labels:
+          costumer: 'blog'
           environment: 'desenvolvimento'
           hostname: 'pve.meudominio.local'
