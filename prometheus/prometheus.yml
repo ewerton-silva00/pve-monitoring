@@ -1,0 +1,43 @@
+global:
+  scrape_interval: 30s # By default, scrape targets every 15 seconds.
+  scrape_timeout: 15s # How long until a scrape request times out.
+  evaluation_interval: 1m # How frequently to evaluate rules.
+
+# Rule files specifies a list of globs. Rules and alerts are read from
+# all matching files.
+rule_files:
+  - '/etc/prometheus/alerts.yml'
+
+# Alerting specifies settings related to the Alertmanager.
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets: ['alertmanager:9093']
+
+scrape_configs:
+  # The job name assigned to scraped metrics by default.
+  - job_name: 'traefik'
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['traefik:8082']
+        labels:
+          environment: 'desenvolvimento'
+
+  # The job name assigned to scraped metrics by default.
+  - job_name: 'alertmanager'
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['alertmanager:9093']
+        labels:
+          costumer: 'blog'
+          environment: 'desenvolvimento'
+
+  - job_name: 'pve'
+    metrics_path: /pve
+    params:
+      module: [default]
+    static_configs:
+      - targets: ['pve.meudominio.local:9221']
+        labels:
+          environment: 'desenvolvimento'
+          hostname: 'pve.meudominio.local'

@@ -1,0 +1,12 @@
+---
+groups:
+- name: ExporterDown
+  rules:
+  - alert: ExporterDown
+    expr: up == 0
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Exporter down (instance {{ $labels.instance }})"
+      value: '{{ $value }}'
