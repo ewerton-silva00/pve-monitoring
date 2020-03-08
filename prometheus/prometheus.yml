@@ -37,7 +37,7 @@ scrape_configs:
     params:
       module: [default]
     static_configs:
-      - targets: ['pve.meudominio.local:9221']
+      - targets: ['proxmox.esig.com.br:9221']
         labels:
           costumer: 'blog'
           environment: 'desenvolvimento'

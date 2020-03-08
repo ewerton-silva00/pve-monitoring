@@ -10,3 +10,15 @@ groups:
     annotations:
       summary: "Exporter down (instance {{ $labels.instance }})"
       value: '{{ $value }}'
+
+- name: PVEAlerts
+  rules:
+  - alert: PVEGuestDown
+    expr: sum by (costumer, environment, hostname, id) (pve_up{environment="desenvolvimento"}  == 0)
+    for: 2m
+    labels:
+      severity: high
+    annotations:
+      summary: "A VM de id {{ $labels.id }} encontra-se indisponível."
+      description: "VM indisponível no PVE {{ $labels.hostname }}, no ambiente de {{ $labels.environment }} do cliente {{ $labels.costumer }}."
+
